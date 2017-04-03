@@ -18,42 +18,42 @@ public class BreadthFirstSearch {
 	private static String cities[];
 	private static int flights[][];
 	
-    /**
-     * Method to perform a BFS algorithm running on graphs represented by adjacency matrix
-     */
-    private static int[] BFS(int s) {
-        // Array of mark flags for each vertex (initialized to false)
-        boolean[] marks = new boolean[cities.length];
-        // Queue L to know which vertex to visit next
-        Queue<Integer> L = new LinkedList<>();
-        // Mark starting vertex
-        marks[s] = true;
-        // Add starting vertex to queue
-        L.add(s);
-    	// Nearest predecessors
-    	int[] paths = new int[size];
+	/**
+	 * Method to perform a BFS algorithm running on graphs represented by adjacency matrix
+	 */
+	private static int[] BFS(int s) {
+		// Array of mark flags for each vertex (initialized to false)
+		boolean[] marks = new boolean[size];
+		// Queue L to know which vertex to visit next
+		Queue<Integer> L = new LinkedList<>();
+		// Mark starting vertex
+		marks[s] = true;
+		// Add starting vertex to queue
+		L.add(s);
+		// Nearest predecessors
+		int[] paths = new int[size];
 
-        // While there are still vertices in queue
-        while (!L.isEmpty()) {
-            // Dequeue a vertex from queue
-            int v = L.remove();
-            // Loop through all the vertices
-            for(int w = 0; w < flights[v].length; w++) {
-            	// Check if vertices is adjacent to v
-            	if(flights[v][w] == 1) {
-            		// If vertex is unmarked
-	                if (!marks[w]) {
-	                    // Mark vertex and add to queue
-	                    marks[w] = true;
-	                    L.add(w);
-	                    // Set predecessor index to array
-	                    paths[w] = v;
-	                }
-            	}
-            }
-        }
-        return paths;
-    }
+		// While there are still vertices in queue
+		while (!L.isEmpty()) {
+			// Dequeue a vertex from queue
+			int v = L.remove();
+			// Loop through all the vertices
+			for (int w = 0; w < size; w++) {
+				// Check if vertices is adjacent to v
+				if (flights[v][w] == 1) {
+					// If vertex is unmarked
+					if (!marks[w]) {
+						// Mark vertex and add to queue
+						marks[w] = true;
+						L.add(w);
+						// Set predecessor index to array
+						paths[w] = v;
+					}
+				}
+			}
+		}
+		return paths;
+	}
     
     /**
      * Printing of paths
@@ -62,12 +62,12 @@ public class BreadthFirstSearch {
     	// Store relevant path into array
     	shortestPath.add(to);
     	
-    	// If path is not destination
+    	// If path is not origin
     	if(paths[to] != from) {
     		// Recursive to get relevant path
     		query(from, paths[to], paths, shortestPath);
     	}
-    	// Else path is destination
+    	// Else path is origin
     	else {
     		// Store path into array
     		shortestPath.add(from);
