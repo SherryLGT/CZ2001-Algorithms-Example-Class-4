@@ -32,6 +32,7 @@ public class FlightMap {
 	 * Print list of cities
 	 */
 	public void printCitiesList(int size) {
+		System.out.println("\nList of Cities:");
 		for(int i = 0; i < size; i++) {
 			System.out.println(i+1 + ": " + cities[i]);
 		}

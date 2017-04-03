@@ -87,7 +87,7 @@ public class BreadthFirstSearch {
 		long start, end;
 		
 		do {
-			System.out.print("Enter size of flight data: ");
+			System.out.print("Enter graph size: ");
 			size = sc.nextInt();
 		} while (size <= 0 || size > 50);
 		
