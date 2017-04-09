@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -80,8 +81,66 @@ public class BreadthFirstSearch {
     	}
     }
     
+	public static void main (String[] args) {
+		runUser();
+		// runAuto();
+	}
+	
+	/**
+	 * Auto run application according to desired sample size
+	 */
+	public static void runAuto() {
+		long totalTime = 0;
+		int count = 0;
+		int flightCount = 0;
+		size = 8;
+
+		flightMap = new FlightMap();
+		// Get list of cities according to input size
+		cities = flightMap.getCities(size);
+		// Get list of flights according to input size
+		flights = flightMap.getFlights(size, 0);
+		// Print list of cities
+		flightMap.printCitiesList(size);
+		
+		Random rand = new Random();
+
+		while (true) {
+			int i = rand.nextInt(size);
+			int j = rand.nextInt(size);
+			if (i != j) {
+				System.out.println("Selected origin city: " + cities[i]);
+				System.out.println("Selected destination city: " + cities[j]);
+				System.out.println("\nShortest flight path:");
+				long start = System.nanoTime();
+				// Perform BFS and print results
+				query(i, j, BFS(i), new ArrayList<Integer>());
+				long end = System.nanoTime();
+				System.out.println("\n\nCPU time: " + (end - start) + "ns\n");
+				totalTime += (end - start);
+				count++;
+				if (count == 100)
+					break;
+			}
+		}
+		System.out.println("\n\nTotal CPU time: " + totalTime + "ns\n");
+		System.out.println("\n\nAverage CPU time: " + (totalTime / count) + "ns\n");
+		
+
+		for(int i = 0; i<size;i++){
+			for(int j=0; j<size;j++) {
+				if(flights[i][j] == 1) {
+					flightCount++;
+				}
+			}
+		}
+		flightCount = flightCount/2;
+		
+		System.out.println("\n\nNumber of flights: " + flightCount + "\n");
+	}
+
 	@SuppressWarnings("resource")
-	public static void main (String[] args) {		
+	public static void runUser(){
 		Scanner sc = new Scanner(System.in);
 		int from, to;
 		long start, end;
@@ -95,7 +154,7 @@ public class BreadthFirstSearch {
 		// Get list of cities according to input size
 		cities = flightMap.getCities(size);
 		// Get list of flights according to input size
-		flights = flightMap.getFlights(size);
+		flights = flightMap.getFlights(size, 0);
 		// Print list of cities
 		flightMap.printCitiesList(size);
 		
